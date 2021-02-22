@@ -11,9 +11,9 @@
         <Company>TeamIF</Company>
         <Authors>nature@teamif.io</Authors>
         <Configurations>Debug;Release</Configurations>
-        <RepositoryUrl>https://github.com/Team-IF/DiscordManager</RepositoryUrl>
-        <PackageProjectUrl>https://github.com/Team-IF/DiscordManager</PackageProjectUrl>
-        <PackageLicenseUrl>https://github.com/Team-IF/DiscordManager/blob/master/LICENSE</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/GPLNature/DiscordManager</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/GPLNature/DiscordManager</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/GPLNature/DiscordManager/blob/master/LICENSE</PackageLicenseUrl>
         <Platforms>AnyCPU</Platforms>
         <Nullable>enable</Nullable>
         <LangVersion>9</LangVersion>
