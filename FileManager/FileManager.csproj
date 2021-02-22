@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <LangVersion>9</LangVersion>
+        <VersionPrefix>0.0.1</VersionPrefix>
+        <VersionSuffix>dev-20210222</VersionSuffix>
+        <PackageId>FileCreater</PackageId>
+        <PackageTags>File</PackageTags>
+        <Platforms>AnyCPU</Platforms>
+        <Title>FileCreater</Title>
+        <Authors>nature@teamif.io</Authors>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <VersionPrefix>0.2.0</VersionPrefix>
+        <VersionSuffix>dev-20210222</VersionSuffix>
+        <PackageId>DiscordManager</PackageId>
+        <PackageTags>Discord</PackageTags>
+        <Title>DiscordManager</Title>
+        <Company>TeamIF</Company>
+        <Authors>nature@teamif.io</Authors>
+        <Configurations>Debug;Release</Configurations>
+        <RepositoryUrl>https://github.com/Team-IF/DiscordManager</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/Team-IF/DiscordManager</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/Team-IF/DiscordManager/blob/master/LICENSE</PackageLicenseUrl>
+        <Platforms>AnyCPU</Platforms>
+        <Nullable>enable</Nullable>
+        <LangVersion>9</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Discord.Net" Version="2.3.0" />
+      <PackageReference Include="Discord.Net.Core" Version="2.3.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Logging" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\LogManager\LogManager.csproj" />
+    </ItemGroup>
+
+</Project>
