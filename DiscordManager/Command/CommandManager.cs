@@ -15,7 +15,7 @@ namespace DiscordManager.Command
   public class CommandManager
   {
     private readonly Regex _contentRegex = new Regex(@"(""[^""]+""|[^\s""]+)");
-    private readonly Func<SocketMessage, Permission, List<string>>? _customPermission;
+    private readonly Func<SocketMessage, string>? _customPermission;
     private readonly Logger _logger;
     private readonly DiscordManager _manager;
     private readonly Permission _permission;
@@ -80,13 +80,22 @@ namespace DiscordManager.Command
 
     private bool PermCheck<T>(T source, SocketMessage e) where T : CommandWrapper
     {
-      return GetPermission(e).Contains(source.Permission);
+      return GetPermission(e).Contains(source.RoleName);
     }
 
     private List<string> GetPermission(SocketMessage e)
     {
-      _customPermission?.Invoke(e, _permission);
-
+      if (_customPermission != null)
+      {
+        try
+        {
+          return _permission.GetPermission(_customPermission.Invoke(e)).ToList();
+        }
+        catch (Exception)
+        {
+          // ignored
+        }
+      }
       return _permission.GetDefaultPermission().ToList();
     }
 
@@ -138,7 +147,7 @@ namespace DiscordManager.Command
           var botPermission =
             Attribute.GetCustomAttribute(method, typeof(RequireBotPermission), true) as RequireBotPermission;
           var requirePermission =
-            Attribute.GetCustomAttribute(method, typeof(RequirePermission), true) as RequirePermission;
+            Attribute.GetCustomAttribute(method, typeof(RequireRole), true) as RequireRole;
           var usage =
             ((CommandUsage) Attribute.GetCustomAttribute(method, typeof(CommandUsage), true))?.Usage ?? Usage.ALL;
 

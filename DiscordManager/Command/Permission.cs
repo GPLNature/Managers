@@ -5,15 +5,16 @@ namespace DiscordManager.Command
 {
   public class Permission
   {
+    // 
     private readonly Dictionary<string, LinkedList<string>> _permissions;
 
     internal Permission()
     {
       _permissions = new Dictionary<string, LinkedList<string>>
       {
-        ["Owner"] = new LinkedList<string>(new[] {"Owner", "Admin", "Everyone"}.ToList()),
-        ["Admin"] = new LinkedList<string>(new[] {"Admin", "Everyone"}),
-        ["Everyone"] = new LinkedList<string>(new[] {"Everyone"})
+        ["Owner"] = new(new[] {"Owner", "Admin", "Everyone"}.ToList()),
+        ["Admin"] = new(new[] {"Admin", "Everyone"}),
+        ["Everyone"] = new(new[] {"Everyone"})
       };
     }
 
