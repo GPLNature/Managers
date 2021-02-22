@@ -10,6 +10,8 @@
  GPLNature (Twitter)
 로 부탁드립니다.
 
+프로젝트 이전했습니다 -> [Managers](https://github.com/GPLNature/Managers)
+
 # ENG
 This DiscordManager Project target is C# beginner for develop Discord Bots!
 
@@ -19,6 +21,8 @@ Let me know if there is a convenience feature you want to add
 
 The basic usage writed in this `ReadMe.md` File is not the latest version.
 To be updated later
+
+This Project Deprecated go to [Managers](https://github.com/GPLNature/Managers)
 
 [![NuGet](https://img.shields.io/nuget/vpre/DiscordManager.svg?maxAge=2592000?style=plastic)](https://www.nuget.org/packages/DiscordManager)
 
