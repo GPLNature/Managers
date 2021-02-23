@@ -147,7 +147,7 @@ namespace DiscordManager.Command
           var botPermission =
             Attribute.GetCustomAttribute(method, typeof(RequireBotPermission), true) as RequireBotPermission;
           var requirePermission =
-            Attribute.GetCustomAttribute(method, typeof(RequireRole), true) as RequireRole;
+            Attribute.GetCustomAttribute(method, typeof(RequirePermission), true) as RequirePermission;
           var usage =
             ((CommandUsage) Attribute.GetCustomAttribute(method, typeof(CommandUsage), true))?.Usage ?? Usage.ALL;
 

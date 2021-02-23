@@ -93,13 +93,13 @@ namespace DiscordManager.Command
   ///   Set Require Permission for User execute this Command
   /// </summary>
   [AttributeUsage(AttributeTargets.Method, Inherited = false)]
-  public class RequireRole : Attribute
+  public class RequirePermission : Attribute
   {
-    internal readonly string RoleName;
+    internal readonly string PermissionName;
 
-    public RequireRole(string roleName)
+    public RequirePermission(string permissionName)
     {
-      RoleName = roleName;
+      PermissionName = permissionName;
     }
   }
 }
