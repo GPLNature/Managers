@@ -3,6 +3,16 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
         <LangVersion>9</LangVersion>
+        <VersionPrefix>0.0.1</VersionPrefix>
+        <VersionSuffix>dev-20210223</VersionSuffix>
+        <PackageId>LoggingManager</PackageId>
+        <PackageTags>Logger</PackageTags>
+        <Platforms>AnyCPU</Platforms>
+        <Title>LogManager</Title>
+        <Authors>nature@teamif.io</Authors>
+        <RepositoryUrl>https://github.com/GPLNature/Managers</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/GPLNature/Managers</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/GPLNature/Managers/blob/master/LICENSE</PackageLicenseUrl>
     </PropertyGroup>
 
 </Project>
