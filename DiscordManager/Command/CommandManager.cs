@@ -15,7 +15,7 @@ namespace DiscordManager.Command
   public class CommandManager
   {
     private readonly Regex _contentRegex = new Regex(@"(""[^""]+""|[^\s""]+)");
-    private readonly Func<SocketMessage, string>? _customPermission;
+    private readonly Func<SocketMessage, DiscordManager, string>? _customPermission;
     private readonly Logger _logger;
     private readonly DiscordManager _manager;
     private readonly Permission _permission;
@@ -89,13 +89,14 @@ namespace DiscordManager.Command
       {
         try
         {
-          return _permission.GetPermission(_customPermission.Invoke(e)).ToList();
+          return _permission.GetPermission(_customPermission.Invoke(e, _manager)).ToList();
         }
         catch (Exception)
         {
           // ignored
         }
       }
+
       return _permission.GetDefaultPermission().ToList();
     }
 
@@ -226,8 +227,21 @@ namespace DiscordManager.Command
                 if (elementType == null)
                   continue;
 
+                bool Predicate(string item)
+                {
+                  try
+                  {
+                    _ = Convert.ChangeType(item, elementType);
+                    return true;
+                  }
+                  catch (Exception)
+                  {
+                    return false;
+                  }
+                }
+
                 var paramArray = matches.Skip(i)
-                  .Where(item => TypeDescriptor.GetConverter(item).CanConvertTo(elementType))
+                  .Where(Predicate)
                   .Select(item => Convert.ChangeType(item, elementType)).ToArray();
                 var destinationArray = Array.CreateInstance(elementType, paramArray.Length);
                 Array.Copy(paramArray, destinationArray, paramArray.Length);

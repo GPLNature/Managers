@@ -11,6 +11,6 @@ namespace DiscordManager.Interfaces
     public Func<SocketMessage, CommandManager, Task>? CommandFunc = null;
     public string[] HelpArg = {"help"};
     public string Prefix = "!";
-    public Func<SocketMessage, string>? Permission = null;
+    public Func<SocketMessage, DiscordManager, string>? Permission = null;
   }
 }

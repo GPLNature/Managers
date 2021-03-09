@@ -51,7 +51,7 @@ namespace DiscordManager
       }
     }
 
-    private async Task Init(string token, TokenType type)
+    private async Task Init(string token, TokenType type, bool skipTokenCheck)
     {
       await _clientLogger.InfoAsync("Discord Manager Initialize....").ConfigureAwait(false);
       await _clientLogger.DebugAsync("Check Internet is Available").ConfigureAwait(false);
@@ -62,7 +62,8 @@ namespace DiscordManager
       await _clientLogger.DebugAsync("Check Token is Validated").ConfigureAwait(false);
       try
       {
-        TokenUtils.ValidateToken(type, token);
+        if (!skipTokenCheck)
+          TokenUtils.ValidateToken(type, token);
       }
       catch (Exception e)
       {
@@ -131,11 +132,11 @@ namespace DiscordManager
     /// </summary>
     /// <param name="token"></param>
     /// <param name="type"></param>
-    public void Run(string token, TokenType type = TokenType.Bot)
+    public void Run(string token, TokenType type = TokenType.Bot, bool skipTokenCheck = false)
     {
       try
       {
-        Init(token, type).GetAwaiter().GetResult();
+        Init(token, type, skipTokenCheck).GetAwaiter().GetResult();
       }
       catch (ManagerException e)
       {

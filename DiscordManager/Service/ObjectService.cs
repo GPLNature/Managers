@@ -61,21 +61,20 @@ namespace DiscordManager.Service
         return;
       }
 
-      ConstructorInfo info;
       try
       {
-        info = args == null
+        var info = args == null
           ? type.GetConstructor(Type.EmptyTypes)
           : type.GetConstructor(args.Select(o => o.GetType()).ToArray());
+        
+        var instance = info.Invoke(args);
+        _objects.Add(type.Name, instance);
       }
       catch (Exception e)
       {
         _logger.CriticalAsync(e.StackTrace, e);
         throw;
       }
-
-      var instance = info.Invoke(args);
-      _objects.Add(type.Name, instance);
     }
 
     public void Remove<T>()

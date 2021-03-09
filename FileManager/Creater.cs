@@ -10,21 +10,32 @@ namespace FileManager
   {
     private static object JsonLoad(string filePath, Type type)
     {
-      File.ReadAllText(filePath, Encoding.UTF8);
+      if (!File.Exists(filePath))
+      {
+        return JsonSave(filePath, Activator.CreateInstance(type), type);
+      }
 
-      return JsonConvert.DeserializeObject(filePath, type);
+      var fileText = File.ReadAllText(filePath, Encoding.UTF8);
+
+      return JsonConvert.DeserializeObject(fileText, type);
     }
 
     private static object JsonSave(string filePath, object data, Type type)
     {
-      var contents = JsonConvert.SerializeObject(data);
-      File.WriteAllText(filePath, contents);
+
+      var file = new FileInfo(filePath);
+      var dir = file.Directory;
+
+      if (dir != null && !dir.Exists) dir.Create();
+
+      var contents = JsonConvert.SerializeObject(data, Formatting.Indented);
+      using (var writer = file.CreateText()) writer.Write(contents);
       return JsonConvert.DeserializeObject(contents, type);
     }
 
     private static string FilePath(string path, string fileName, FileType type)
     {
-      return $"{path}/{fileName}.{type}";
+      return $"{path}/{fileName}.{type.ToString().ToLower()}";
     }
 
     public static FileWrapper Loader(string path, Type type)
@@ -47,12 +58,12 @@ namespace FileManager
           {
             FileType.Json => JsonSave(filePath, Activator.CreateInstance(type), type)
           };
-          
+
           return new FileWrapper(type.Name, path, createdClass, manage.FileType, type);
         }
       }
 
-      return default;
+      throw new FileManageException($"{type.Name} doesn't have FileManage Attribute");
     }
 
     public static void Save(FileWrapper wrapper)
