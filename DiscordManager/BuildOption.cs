@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
+﻿using System.Reflection;
 using Discord;
 using Discord.WebSocket;
-using DiscordManager.Command;
 using DiscordManager.Interfaces;
-using LogManager;
+using LogCreator;
 
 namespace DiscordManager
 {
@@ -16,15 +13,12 @@ namespace DiscordManager
 
     public UserStatus BotStatus = UserStatus.Online;
     public BaseSocketClient? Client = null;
-    public CommandConfig CommandConfig;
+    public CommandConfig? CommandConfig;
     public Game? Game;
     public GatewayIntents? Intents = null;
     public LogLevel LogLevel = LogLevel.INFO;
-    public Func<SocketMessage, Permission, List<string>>? Permmission = null;
-    public DiscordSocketConfig? SocketConfig;
     public ShardOption? ShardOption = null;
-    public bool UseObjectService = false;
-    public bool UseCommandModule = false;
+    public DiscordSocketConfig? SocketConfig;
   }
 
   internal struct ShardOption

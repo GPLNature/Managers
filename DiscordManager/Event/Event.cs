@@ -7,7 +7,7 @@ namespace DiscordManager.Event
 {
   internal class Event<T> where T : class
   {
-    private readonly object _lockOnly = new object();
+    private readonly object _lockOnly = new();
     private ImmutableArray<T> _array;
 
     public Event()

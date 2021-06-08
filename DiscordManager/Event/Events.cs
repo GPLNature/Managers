@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using LogManager;
+using LogCreator;
 
 namespace DiscordManager.Event
 {
@@ -9,11 +9,11 @@ namespace DiscordManager.Event
     internal readonly Logger _clientLogger;
 
     internal readonly Event<Func<LogObject, Task>> _log = new();
-    internal readonly LogManager.LogManager LogManager;
+    internal readonly LogManager LogManager;
 
     internal Events(LogLevel level)
     {
-      LogManager = new LogManager.LogManager(level)
+      LogManager = new LogManager(level)
       {
         LoggerFunc = async msg => await _log.Invoke(msg).ConfigureAwait(false)
       };

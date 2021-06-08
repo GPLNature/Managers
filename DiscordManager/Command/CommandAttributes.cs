@@ -87,19 +87,4 @@ namespace DiscordManager.Command
       Permissions = permissions;
     }
   }
-
-  /// <summary>
-  ///   Use For Command Method
-  ///   Set Require Permission for User execute this Command
-  /// </summary>
-  [AttributeUsage(AttributeTargets.Method, Inherited = false)]
-  public class RequirePermission : Attribute
-  {
-    internal readonly string PermissionName;
-
-    public RequirePermission(string permissionName)
-    {
-      PermissionName = permissionName;
-    }
-  }
 }

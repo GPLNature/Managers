@@ -10,15 +10,13 @@ namespace DiscordManager.Command
     public readonly CommandGroup? CommandGroup;
     public readonly string[] CommandName;
     public readonly MethodInfo MethodInfo;
-    public readonly string RoleName;
     public readonly Usage Usage;
 
-    public CommandWrapper(CommandName commandName, Usage usage, RequirePermission? permission,
+    public CommandWrapper(CommandName commandName, Usage usage,
       RequireBotPermission? botPermission, MethodInfo info, CommandGroup? commandGroup)
     {
       CommandName = commandName.Names;
       Usage = usage;
-      RoleName = permission?.PermissionName ?? "Everyone";
       BotPermission = botPermission?.Permissions;
       MethodInfo = info;
       CommandGroup = commandGroup;

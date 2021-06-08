@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace LogManager
+namespace LogCreator
 {
   public struct LogObject
   {

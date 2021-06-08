@@ -1,8 +1,7 @@
 ﻿using System;
 
-namespace FileManager
+namespace FileCreator
 {
-  
   [AttributeUsage(AttributeTargets.Class)]
   public class FileManage : Attribute
   {

@@ -1,39 +1,27 @@
 ﻿using System;
+using Discord;
 using Discord.WebSocket;
-using LogManager;
+using LogCreator;
 
 namespace DiscordManager.Interfaces
 {
   public class Context
   {
-    protected readonly TimeSpan _defaultTimeout = TimeSpan.FromMinutes(3);
+    protected readonly TimeSpan DefaultTimeout = TimeSpan.FromMinutes(3);
     protected DiscordManager Manager { get; private set; }
-
-    internal DiscordManager _Manager
-    {
-      set
-      {
-        Manager = value;
-        Logger = Manager.LogManager.CreateLogger("Context");
-      }
-    }
 
     protected Logger Logger { get; private set; }
     protected BaseSocketClient Client => Manager.GetClient();
 
     protected SocketMessage Message { get; private set; }
 
-    internal SocketMessage _message
-    {
-      set => Message = value;
-    }
 
     protected SocketSelfUser Self => Client.CurrentUser;
 
     /// <summary>
     ///   Get Message Author from Message
     /// </summary>
-    public SocketUser Author => Message.Author;
+    protected SocketUser Author => Message.Author;
 
     /// <summary>
     ///   Get Message Channel from Message
@@ -45,5 +33,28 @@ namespace DiscordManager.Interfaces
     ///   Opposition is guild not null
     /// </summary>
     protected SocketGuild? Guild => (Channel as SocketGuildChannel)?.Guild;
+
+    internal void Initialize(DiscordManager manager, Logger logger)
+    {
+      Manager = manager;
+      Logger = logger;
+
+      Init();
+    }
+
+    internal void SetMessage(SocketMessage message)
+    {
+      Message = message;
+    }
+
+    internal IUser GetAuthor()
+    {
+      return Author;
+    }
+
+    protected virtual void Init()
+    {
+      // Empty
+    }
   }
 }

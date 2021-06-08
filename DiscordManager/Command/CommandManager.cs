@@ -1,47 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Discord.WebSocket;
 using DiscordManager.Interfaces;
-using LogManager;
+using LogCreator;
 
 namespace DiscordManager.Command
 {
   public class CommandManager
   {
-    private readonly Regex _contentRegex = new Regex(@"(""[^""]+""|[^\s""]+)");
+    private readonly Regex _contentRegex = new(@"(""[^""]+""|[^\s""]+)");
     private readonly Func<SocketMessage, DiscordManager, string>? _customPermission;
+    private readonly string[] _helpArg;
     private readonly Logger _logger;
     private readonly DiscordManager _manager;
-    private readonly Permission _permission;
-    private readonly string[] _helpArg;
+    private readonly string _prefix;
     private IReadOnlyDictionary<Context, IReadOnlyCollection<CommandWrapper>> _commands;
     private IReadOnlyDictionary<string, MethodInfo> _helpCommands;
-    private readonly string _prefix;
 
     internal CommandManager(DiscordManager manager, CommandConfig commandConfig)
     {
       _manager = manager;
       _logger = _manager.LogManager.CreateLogger("Command Manager (CM)");
-      _permission = new Permission();
       _customPermission = commandConfig.Permission;
       _helpArg = commandConfig.HelpArg;
       _prefix = commandConfig.Prefix;
 
       var client = manager.GetClient();
       if (commandConfig.CommandFunc != null)
-      {
         client.MessageReceived += async arg => { await commandConfig.CommandFunc.Invoke(arg, this); };
-      }
       else
-      {
         client.MessageReceived += ClientOnMessageReceived;
-      }
     }
 
     private async Task ClientOnMessageReceived(SocketMessage arg)
@@ -51,12 +43,15 @@ namespace DiscordManager.Command
 
       var content = arg.Content.Trim();
 
-      var splitContent = content.Split(' ');
-      var firstWord = splitContent[0];
-      if (!firstWord.StartsWith(_prefix)) return;
-      var commandName = firstWord.Substring(_prefix.Length);
+      if (content.StartsWith(_prefix))
+      {
+        var arguments = content.Split(' ');
 
-      ExecuteCommand(arg, commandName);
+        var commandName = arguments.ElementAtOrDefault(1);
+
+        if (commandName != null)
+          ExecuteCommand(arg, commandName);
+      }
     }
 
     private KeyValuePair<Context, CommandWrapper>? GetCommand(string commandName)
@@ -78,30 +73,9 @@ namespace DiscordManager.Command
       return null;
     }
 
-    private bool PermCheck<T>(T source, SocketMessage e) where T : CommandWrapper
-    {
-      return GetPermission(e).Contains(source.RoleName);
-    }
-
-    private List<string> GetPermission(SocketMessage e)
-    {
-      if (_customPermission != null)
-      {
-        try
-        {
-          return _permission.GetPermission(_customPermission.Invoke(e, _manager)).ToList();
-        }
-        catch (Exception)
-        {
-          // ignored
-        }
-      }
-
-      return _permission.GetDefaultPermission().ToList();
-    }
-
     internal void LoadCommands()
     {
+      var commandLogger = _manager.LogManager.CreateLogger("Command");
       var assembly = AppDomain.CurrentDomain.GetAssemblies();
       var types = assembly.Where(s => s.EntryPoint is not null).SelectMany(s => s.GetTypes())
         .Where(p => !p.IsAbstract && p.IsClass && typeof(Context).IsAssignableFrom(p))
@@ -147,17 +121,15 @@ namespace DiscordManager.Command
           var commandGroup = Attribute.GetCustomAttribute(method, typeof(CommandGroup), true) as CommandGroup;
           var botPermission =
             Attribute.GetCustomAttribute(method, typeof(RequireBotPermission), true) as RequireBotPermission;
-          var requirePermission =
-            Attribute.GetCustomAttribute(method, typeof(RequirePermission), true) as RequirePermission;
           var usage =
             ((CommandUsage) Attribute.GetCustomAttribute(method, typeof(CommandUsage), true))?.Usage ?? Usage.ALL;
 
           nameList.Add(commandName.Names);
-          list.Add(new CommandWrapper(commandName, usage, requirePermission, botPermission, method, commandGroup));
+          list.Add(new CommandWrapper(commandName, usage, botPermission, method, commandGroup));
         }
 
         var construct = (Context) Activator.CreateInstance(type);
-        construct._Manager = _manager;
+        construct.Initialize(_manager, commandLogger);
         commands.Add(construct, list);
       }
 
@@ -189,9 +161,8 @@ namespace DiscordManager.Command
             break;
         }
 
-        if (!PermCheck(command, message)) return;
         var matchesCollection = _contentRegex.Matches(message.Content);
-        var matches = matchesCollection.Select(mts => mts.Value.Replace("\"", "").Trim()).Skip(1).ToArray();
+        var matches = matchesCollection.Select(mts => mts.Value.Replace("\"", "").Trim()).Skip(2).ToArray();
         var service = command.MethodInfo;
         var perm = command.BotPermission;
         if (channel is SocketGuildChannel guildChannel && perm != null)
@@ -209,7 +180,7 @@ namespace DiscordManager.Command
         if (matches.Length != 0 && _helpArg.Contains(matches[0]))
           if (_helpCommands.ContainsKey(command.CommandName[0]))
             service = _helpCommands[command.CommandName[0]];
-        baseClass._message = message;
+        baseClass.SetMessage(message);
         var parameters = service.GetParameters();
         object?[]? param = null;
         if (parameters.Length != 0)

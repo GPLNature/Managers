@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FileManager
+namespace FileCreator
 {
   public class FileManageException : Exception
   {

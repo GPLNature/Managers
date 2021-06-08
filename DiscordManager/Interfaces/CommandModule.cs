@@ -20,12 +20,12 @@ namespace DiscordManager.Interfaces
       return await Channel.SendMessageAsync(text, isTTS, embed).ConfigureAwait(false);
     }
 
-    protected async Task<IGuildChannel> GetGuildChannel(ulong id)
+    protected IGuildChannel? GetGuildChannel(ulong id)
     {
       return Guild?.GetChannel(id);
     }
 
-    protected async Task<IChannel> GetChannel(ulong id)
+    protected IChannel GetChannel(ulong id)
     {
       return Manager.GetClient().GetChannel(id);
     }
@@ -33,7 +33,7 @@ namespace DiscordManager.Interfaces
     protected async Task<IEmote?> NextEmojiAsync(RestUserMessage message, IEmote[] emotes, bool catchAny = false,
       TimeSpan? timeOut = null, CancellationToken token = default)
     {
-      timeOut ??= _defaultTimeout;
+      timeOut ??= DefaultTimeout;
 
       var eventTrigger = new TaskCompletionSource<IEmote>();
       var cancelTrigger = new TaskCompletionSource<bool>();
@@ -75,7 +75,7 @@ namespace DiscordManager.Interfaces
     private async Task<SocketMessage?> NextMessageAsync(IStandard<SocketMessage> standard, TimeSpan? timeOut = null,
       CancellationToken token = default)
     {
-      timeOut ??= _defaultTimeout;
+      timeOut ??= DefaultTimeout;
 
       var eventTrigger = new TaskCompletionSource<SocketMessage>();
       var cancelTrigger = new TaskCompletionSource<bool>();

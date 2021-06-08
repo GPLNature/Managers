@@ -1,4 +1,4 @@
-﻿namespace LogManager
+﻿namespace LogCreator
 {
   public enum LogLevel
   {

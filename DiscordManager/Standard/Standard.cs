@@ -6,7 +6,7 @@ namespace DiscordManager.Standard
 {
   internal class Standard<T> : IStandard<T>
   {
-    private readonly List<IStandard<T>> _standards = new List<IStandard<T>>();
+    private readonly List<IStandard<T>> _standards = new();
 
     public async Task<bool> CheckAsync(Context context, T param)
     {

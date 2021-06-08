@@ -8,7 +8,7 @@ namespace DiscordManager.Standard
   {
     public Task<bool> CheckAsync(Context context, IMessage param)
     {
-      var ok = context.Author.Id == param.Author.Id;
+      var ok = context.GetAuthor().Id == param.Author.Id;
       return Task.FromResult(ok);
     }
   }

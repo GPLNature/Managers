@@ -3,8 +3,8 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <VersionPrefix>0.2.0</VersionPrefix>
-        <VersionSuffix>dev-20210305</VersionSuffix>
+        <VersionPrefix>0.2.3</VersionPrefix>
+        <VersionSuffix>dev-210608</VersionSuffix>
         <PackageId>DiscordManager</PackageId>
         <PackageTags>Discord</PackageTags>
         <Title>DiscordManager</Title>
@@ -20,9 +20,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Discord.Net" Version="2.3.0" />
-      <PackageReference Include="Discord.Net.Core" Version="2.3.0" />
-      <PackageReference Include="LoggingManager" Version="0.0.1-dev-20210223" />
+      <PackageReference Include="Discord.Net" Version="2.4.0" />
+      <PackageReference Include="Discord.Net.Core" Version="2.4.0" />
+      <PackageReference Include="LoggingManager" Version="0.0.1" />
     </ItemGroup>
 
 </Project>

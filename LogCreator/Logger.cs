@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace LogManager
+namespace LogCreator
 {
   public class Logger
   {

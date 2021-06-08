@@ -4,16 +4,13 @@ using System.Reflection;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace FileManager
+namespace FileCreator
 {
   internal class Creater
   {
     private static object JsonLoad(string filePath, Type type)
     {
-      if (!File.Exists(filePath))
-      {
-        return JsonSave(filePath, Activator.CreateInstance(type), type);
-      }
+      if (!File.Exists(filePath)) return JsonSave(filePath, Activator.CreateInstance(type), type);
 
       var fileText = File.ReadAllText(filePath, Encoding.UTF8);
 
@@ -22,14 +19,17 @@ namespace FileManager
 
     private static object JsonSave(string filePath, object data, Type type)
     {
-
       var file = new FileInfo(filePath);
       var dir = file.Directory;
 
       if (dir != null && !dir.Exists) dir.Create();
 
       var contents = JsonConvert.SerializeObject(data, Formatting.Indented);
-      using (var writer = file.CreateText()) writer.Write(contents);
+      using (var writer = file.CreateText())
+      {
+        writer.Write(contents);
+      }
+
       return JsonConvert.DeserializeObject(contents, type);
     }
 
@@ -50,7 +50,7 @@ namespace FileManager
             FileType.Json => JsonLoad(filePath, type)
           };
 
-          return new FileWrapper(type.Name, path, fileClass, manage.FileType, type);
+          return new FileWrapper(manage.FileName, path, fileClass, manage.FileType, type);
         }
         catch (FileNotFoundException)
         {
@@ -59,7 +59,7 @@ namespace FileManager
             FileType.Json => JsonSave(filePath, Activator.CreateInstance(type), type)
           };
 
-          return new FileWrapper(type.Name, path, createdClass, manage.FileType, type);
+          return new FileWrapper(manage.FileName, path, createdClass, manage.FileType, type);
         }
       }
 

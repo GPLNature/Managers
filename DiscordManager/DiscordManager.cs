@@ -5,8 +5,7 @@ using Discord;
 using Discord.WebSocket;
 using DiscordManager.Command;
 using DiscordManager.Event;
-using DiscordManager.Service;
-using LogManager;
+using LogCreator;
 
 namespace DiscordManager
 {
@@ -16,8 +15,7 @@ namespace DiscordManager
   public class DiscordManager : Events
   {
     private readonly BaseSocketClient _client;
-    private readonly CommandManager _commandManager;
-    private readonly ObjectService _objectService;
+    private readonly CommandManager? _commandManager;
 
     internal DiscordManager(BuildOption option) : base(option.LogLevel)
     {
@@ -40,18 +38,17 @@ namespace DiscordManager
 
       _client.SetStatusAsync(option.BotStatus).ConfigureAwait(false);
 
-      if (option.UseObjectService)
-        _objectService = new ObjectService(this);
-
-      if (option.UseCommandModule)
+      if (option.CommandConfig != null)
       {
         _clientLogger.DebugAsync("Load CommandModules...");
         _commandManager = new CommandManager(this, option.CommandConfig);
         _commandManager.LoadCommands();
       }
+
+      if (option.Game != null) _client.SetActivityAsync(option.Game);
     }
 
-    private async Task Init(string token, TokenType type, bool skipTokenCheck)
+    private async Task Init(string token, TokenType type)
     {
       await _clientLogger.InfoAsync("Discord Manager Initialize....").ConfigureAwait(false);
       await _clientLogger.DebugAsync("Check Internet is Available").ConfigureAwait(false);
@@ -62,8 +59,7 @@ namespace DiscordManager
       await _clientLogger.DebugAsync("Check Token is Validated").ConfigureAwait(false);
       try
       {
-        if (!skipTokenCheck)
-          TokenUtils.ValidateToken(type, token);
+        TokenUtils.ValidateToken(type, token);
       }
       catch (Exception e)
       {
@@ -75,9 +71,10 @@ namespace DiscordManager
       await _clientLogger.DebugAsync("Register Events...").ConfigureAwait(false);
       RegisterEvents();
 
-      await _clientLogger.DebugAsync("Successfully Register Events").ConfigureAwait(false);
       await _client.LoginAsync(type, token).ConfigureAwait(false);
       await _client.StartAsync().ConfigureAwait(false);
+
+      await _clientLogger.InfoAsync($"Launched Discord Manager Ver.${BuildOption.Version}").ConfigureAwait(false);
 
       await Task.Delay(-1);
     }
@@ -102,41 +99,21 @@ namespace DiscordManager
       return (T) _client;
     }
 
-    public void AddObject(object obj)
+    public Logger GetMainLogger()
     {
-      _objectService.Add(obj);
-    }
-
-    public void AddObject<T>(params object[] obj)
-    {
-      _objectService.Add<T>(obj);
-    }
-
-    public T GetObject<T>()
-    {
-      return _objectService.Get<T>();
-    }
-
-    public void RemoveObject<T>()
-    {
-      _objectService.Remove<T>();
-    }
-
-    public void RemoveObject(object obj)
-    {
-      _objectService.Remove(obj);
+      return _clientLogger;
     }
 
     /// <summary>
-    /// Discord Manager Run with Token
+    ///   Discord Manager Run with Token
     /// </summary>
     /// <param name="token"></param>
     /// <param name="type"></param>
-    public void Run(string token, TokenType type = TokenType.Bot, bool skipTokenCheck = false)
+    public void Run(string token, TokenType type = TokenType.Bot)
     {
       try
       {
-        Init(token, type, skipTokenCheck).GetAwaiter().GetResult();
+        Init(token, type).GetAwaiter().GetResult();
       }
       catch (ManagerException e)
       {

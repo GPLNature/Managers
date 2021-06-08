@@ -1,4 +1,4 @@
-﻿namespace FileManager
+﻿namespace FileCreator
 {
   public enum FileType
   {

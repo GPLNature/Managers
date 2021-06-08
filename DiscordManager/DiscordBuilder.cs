@@ -1,7 +1,7 @@
 ﻿using Discord;
 using Discord.WebSocket;
 using DiscordManager.Interfaces;
-using LogManager;
+using LogCreator;
 
 namespace DiscordManager
 {
@@ -20,13 +20,12 @@ namespace DiscordManager
     public DiscordBuilder WithCommandModule(CommandConfig? config = null)
     {
       Option.CommandConfig = config ?? new CommandConfig();
-      Option.UseCommandModule = true;
       return this;
     }
 
     /// <summary>
     ///   Set GatewayIntents
-    /// </summary> 
+    /// </summary>
     public DiscordBuilder WithGatewayIntents(GatewayIntents intents)
     {
       Option.Intents = intents;
@@ -89,12 +88,6 @@ namespace DiscordManager
     public DiscordBuilder UseSocketConfig(DiscordSocketConfig config)
     {
       Option.SocketConfig = config;
-      return this;
-    }
-
-    public DiscordBuilder UseObjectService()
-    {
-      Option.UseObjectService = true;
       return this;
     }
 

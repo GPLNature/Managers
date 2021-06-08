@@ -3,8 +3,8 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
         <LangVersion>9</LangVersion>
-        <VersionPrefix>0.0.1</VersionPrefix>
-        <VersionSuffix>dev-20210224-1</VersionSuffix>
+        <VersionPrefix>0.0.3</VersionPrefix>
+        <VersionSuffix></VersionSuffix>
         <PackageId>FileCreater</PackageId>
         <PackageTags>File</PackageTags>
         <Platforms>AnyCPU</Platforms>
@@ -16,7 +16,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     </ItemGroup>
 
 </Project>
