@@ -3,7 +3,7 @@ using Discord;
 using Discord.WebSocket;
 using LogCreator;
 
-namespace DiscordManager.Interfaces
+namespace DiscordCreator.Interfaces
 {
   public class Context
   {

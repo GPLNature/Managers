@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 
-namespace DiscordManager.Event
+namespace DiscordCreator.Event
 {
   internal class Event<T> where T : class
   {

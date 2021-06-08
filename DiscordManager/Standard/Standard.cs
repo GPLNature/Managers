@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DiscordManager.Interfaces;
+using DiscordCreator.Interfaces;
 
-namespace DiscordManager.Standard
+namespace DiscordCreator.Standard
 {
   internal class Standard<T> : IStandard<T>
   {

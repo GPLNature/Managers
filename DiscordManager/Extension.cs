@@ -1,7 +1,7 @@
 ﻿using Discord;
 using Discord.WebSocket;
 
-namespace DiscordManager
+namespace DiscordCreator
 {
   public static class Extension
   {

@@ -1,9 +1,9 @@
 ﻿using Discord;
 using Discord.WebSocket;
-using DiscordManager.Interfaces;
+using DiscordCreator.Interfaces;
 using LogCreator;
 
-namespace DiscordManager
+namespace DiscordCreator
 {
   public class DiscordBuilder
   {

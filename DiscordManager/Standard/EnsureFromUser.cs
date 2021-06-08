@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Discord;
-using DiscordManager.Interfaces;
+using DiscordCreator.Interfaces;
 
-namespace DiscordManager.Standard
+namespace DiscordCreator.Standard
 {
   internal class EnsureFromUser : IStandard<IMessage>
   {

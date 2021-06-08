@@ -5,10 +5,10 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Discord.WebSocket;
-using DiscordManager.Interfaces;
+using DiscordCreator.Interfaces;
 using LogCreator;
 
-namespace DiscordManager.Command
+namespace DiscordCreator.Command
 {
   public class CommandManager
   {

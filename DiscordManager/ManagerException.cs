@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DiscordManager
+namespace DiscordCreator
 {
   internal class ManagerException : Exception
   {

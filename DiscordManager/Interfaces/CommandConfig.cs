@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Discord.WebSocket;
-using DiscordManager.Command;
+using DiscordCreator.Command;
 
-namespace DiscordManager.Interfaces
+namespace DiscordCreator.Interfaces
 {
   public class CommandConfig
   {

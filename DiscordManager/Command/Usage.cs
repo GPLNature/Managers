@@ -1,4 +1,4 @@
-﻿namespace DiscordManager.Command
+﻿namespace DiscordCreator.Command
 {
   public enum Usage
   {

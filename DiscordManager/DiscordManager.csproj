@@ -17,6 +17,8 @@
         <Platforms>AnyCPU</Platforms>
         <Nullable>enable</Nullable>
         <LangVersion>9</LangVersion>
+        <AssemblyName>DiscordCreator</AssemblyName>
+        <RootNamespace>DiscordCreator</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

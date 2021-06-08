@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.Rest;
 using Discord.WebSocket;
-using DiscordManager.Standard;
+using DiscordCreator.Standard;
 
-namespace DiscordManager.Interfaces
+namespace DiscordCreator.Interfaces
 {
   /// <summary>
   ///   Use for Command System

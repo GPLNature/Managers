@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using LogCreator;
 
-namespace DiscordManager.Event
+namespace DiscordCreator.Event
 {
   public abstract class Events
   {

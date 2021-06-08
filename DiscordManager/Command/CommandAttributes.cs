@@ -1,7 +1,7 @@
 ﻿using System;
 using Discord;
 
-namespace DiscordManager.Command
+namespace DiscordCreator.Command
 {
   /// <summary>
   ///   Use For Command Method

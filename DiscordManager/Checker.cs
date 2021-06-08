@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DiscordManager
+namespace DiscordCreator
 {
   internal static class Checker
   {

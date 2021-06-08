@@ -3,11 +3,11 @@ using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
-using DiscordManager.Command;
-using DiscordManager.Event;
+using DiscordCreator.Command;
+using DiscordCreator.Event;
 using LogCreator;
 
-namespace DiscordManager
+namespace DiscordCreator
 {
   /// <summary>
   ///   It's DiscordManager Core

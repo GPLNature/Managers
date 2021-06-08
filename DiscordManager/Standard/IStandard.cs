@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using DiscordManager.Interfaces;
+using DiscordCreator.Interfaces;
 
-namespace DiscordManager.Standard
+namespace DiscordCreator.Standard
 {
   public interface IStandard<in T>
   {

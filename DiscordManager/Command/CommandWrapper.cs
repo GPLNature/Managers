@@ -2,7 +2,7 @@
 using System.Reflection;
 using Discord;
 
-namespace DiscordManager.Command
+namespace DiscordCreator.Command
 {
   internal class CommandWrapper
   {

@@ -1,10 +1,10 @@
 ﻿using System.Reflection;
 using Discord;
 using Discord.WebSocket;
-using DiscordManager.Interfaces;
+using DiscordCreator.Interfaces;
 using LogCreator;
 
-namespace DiscordManager
+namespace DiscordCreator
 {
   internal class BuildOption
   {
