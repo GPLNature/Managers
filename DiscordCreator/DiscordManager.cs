@@ -10,7 +10,7 @@ using LogCreator;
 namespace DiscordCreator
 {
   /// <summary>
-  ///   It's DiscordManager Core
+  ///   It's DiscordCreator Core
   /// </summary>
   public class DiscordManager : Events
   {

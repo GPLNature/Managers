@@ -5,7 +5,7 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <VersionPrefix>0.2.3</VersionPrefix>
         <VersionSuffix>dev-210608</VersionSuffix>
-        <PackageId>DiscordManager</PackageId>
+        <PackageId>DiscordCreator</PackageId>
         <PackageTags>Discord</PackageTags>
         <Title>DiscordManager</Title>
         <Company>TeamIF</Company>

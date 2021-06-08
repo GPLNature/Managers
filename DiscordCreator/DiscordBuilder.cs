@@ -15,7 +15,7 @@ namespace DiscordCreator
     }
 
     /// <summary>
-    ///   Use the Command Service in DiscordManager
+    ///   Use the Command Service in DiscordCreator
     /// </summary>
     public DiscordBuilder WithCommandModule(CommandConfig? config = null)
     {
@@ -35,7 +35,7 @@ namespace DiscordCreator
     /// <summary>
     ///   Set LogLevel(NONE,INFO, ERROR, CRITICAL,DEBUG, ALL)
     /// </summary>
-    /// <param name="level">Log Level for DiscordManager</param>
+    /// <param name="level">Log Level for DiscordCreator</param>
     public DiscordBuilder WithLogLevel(LogLevel level)
     {
       Option.LogLevel = level;
